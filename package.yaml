@@ -50,7 +50,7 @@ library:
   source-dirs: src
 
 executables:
-  pyc-exe:
+  pyc:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
