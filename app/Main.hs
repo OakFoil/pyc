@@ -1,10 +1,12 @@
 module Main (main) where
 
-import Compiler.Parsing.Types
 import Compiler.Parsing.Parser
-import System.FilePath
+import Compiler.Parsing.Types
 import Data.Maybe
 import System.Environment
+import System.Exit
+import System.FilePath
+import System.IO
 
 main :: IO ()
 main = do
@@ -12,8 +14,12 @@ main = do
   let argFileName = fromMaybe "main" $ listToMaybe args
   let resolvedFileName = addExtensionIfMissing argFileName
   input <- readFile resolvedFileName
-  stmts <- either fail return $ runMyParser file resolvedFileName input
+  stmts <- either exitWithErrorMsg return $ runMyParser file resolvedFileName input
   print stmts
+  where
+    exitWithErrorMsg a = do
+      hPutStr stderr a
+      exitFailure
 
 addExtensionIfMissing :: FilePath -> FilePath
 addExtensionIfMissing fileName

@@ -11,7 +11,7 @@ parsingTests :: Test
 parsingTests =
   TestList $
     map
-      testParsing
+      testParseCase
       [ "from package import variable",
         "a = a",
         "1",
@@ -19,7 +19,7 @@ parsingTests =
         "f(a, b, c)"
       ]
 
-testParsing :: Input -> Test
-testParsing string = TestCase $ assertBool ("Got: " ++ fromLeft' parseResult) $ isRight parseResult
+testParseCase :: Input -> Test
+testParseCase string = TestCase $ assertBool ("Got: " ++ fromLeft' parseResult) $ isRight parseResult
   where
     parseResult = runMyParser file "main.py" string

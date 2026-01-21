@@ -17,11 +17,11 @@ data File = File
   }
   deriving (Show, Read, Eq)
 
-data Stmt =
-      Import String FilePath
-    | Define String Expr
-    | TopLevelExpr Expr
-    deriving (Show, Read, Eq)
+data Stmt
+  = Import String FilePath
+  | Define String Expr
+  | TopLevelExpr Expr
+  deriving (Show, Read, Eq)
 
 type Parser = Parsec Error Input
 
