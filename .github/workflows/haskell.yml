@@ -29,6 +29,13 @@ jobs:
         path: ~/.stack
         key: ${{ runner.os }}-stack
 
+    - name: Cache .stack-work
+      uses: actions/cache@v5
+      with:
+        path: .stack-work
+        key: ${{ runner.os }}-stack-work
+
+
     - name: Install dependencies
       run: |
         stack build --only-dependencies
