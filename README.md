@@ -4,6 +4,8 @@
 
 # PyC
 
+[![GitHub CI](https://github.com/OakFoil/pyc/actions/workflows/haskell.yml/badge.svg)](https://github.com/OakFoil/pyc/actions/workflows/haskell.yml)
+
 A python compiler which produces extremely fast code
 
 To quickly give it a try
