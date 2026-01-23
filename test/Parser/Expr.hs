@@ -9,8 +9,7 @@ tests :: [Assertion]
 tests =
   map
     (testIfParsesWithoutError expr)
-    [ "a = a",
-      "1",
+    [ "1",
       "lambda a, b: a + b",
       "f(a, b, c)"
     ]

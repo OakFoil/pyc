@@ -10,6 +10,7 @@ tests =
   map
     (testIfParsesWithoutError file)
     [ "from package import variable",
+      "a = a",
       "lambdaA = 1"
     ]
     ++ Expr.tests
