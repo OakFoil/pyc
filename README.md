@@ -14,12 +14,12 @@ To quickly give it a try
 2. install [stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/#install-stack)
 3. run the following command:
 
-```
+``` bash
 stack run -- <file>.py
 ```
 
 ## Usage Examples
 
-```
+``` bash
 pyc File.py
 ```
