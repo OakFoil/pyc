@@ -71,3 +71,4 @@ tests:
     dependencies:
     - pyc
     - HUnit
+    - raw-strings-qq

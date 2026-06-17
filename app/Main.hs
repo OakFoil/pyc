@@ -17,8 +17,8 @@ main = do
   stmts <- either exitWithErrorMsg return $ runMyParser file resolvedFileName input
   print stmts
   where
-    exitWithErrorMsg a = do
-      hPutStr stderr a
+    exitWithErrorMsg errorMsg = do
+      hPutStr stderr errorMsg
       exitFailure
 
 addExtensionIfMissing :: FilePath -> FilePath

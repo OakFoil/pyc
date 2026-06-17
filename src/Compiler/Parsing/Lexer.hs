@@ -1,4 +1,16 @@
-module Compiler.Parsing.Lexer (lexeme, symbol, integer, variable, keyword, indentBlock, nonIndented, lineFold) where
+module Compiler.Parsing.Lexer
+  ( lexeme,
+    symbol,
+    integer,
+    float,
+    stringLiteral,
+    variable,
+    keyword,
+    indentBlock,
+    nonIndented,
+    lineFold,
+  )
+where
 
 import Compiler.Parsing.Types
 import Control.Monad
@@ -46,6 +58,11 @@ integer = label "integer" $ lexeme L.decimal
 
 float :: (RealFloat a) => Parser a
 float = label "float" $ lexeme L.float
+
+stringLiteral :: Parser String
+stringLiteral = label "string" $ f '"' <|> f '\''
+  where
+    f delimiter = char delimiter *> manyTill L.charLiteral (char delimiter)
 
 variable :: Parser String
 variable = label "variable" $ lexeme $ (:) <$> (letterChar <|> char '_') <*> many (alphaNumChar <|> char '_')

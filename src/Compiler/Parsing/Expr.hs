@@ -27,7 +27,15 @@ parens :: Parser a -> Parser a
 parens = between (symbol "(") (symbol ")")
 
 term :: Parser Expr
-term = choice [parens expr, lambda, Integer <$> integer, Var <$> variable]
+term =
+  choice
+    [ parens expr,
+      lambda,
+      Float <$> try float,
+      Integer <$> integer,
+      String <$> stringLiteral,
+      Var <$> variable
+    ]
 
 expr :: Parser Expr
 expr = makeExprParser (try app <|> term) operators
