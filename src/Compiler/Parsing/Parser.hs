@@ -10,19 +10,29 @@ import Text.Megaparsec.Char
 file :: Parser [Stmt]
 file = do
   space
-  importStmts <- many $ nonIndented importStmt <* space
-  otherStmts <- many $ nonIndented (try defineStmt <|> (TopLevelExpr <$> expr)) <* space
+  importStmts <- many $ nonIndented (try importStmt) <* space
+  otherStmts <- many $ nonIndented (try defineStmt <|> (Expr <$> expr)) <* space
   eof
   return $ importStmts ++ otherStmts
 
 importStmt :: Parser Stmt
-importStmt = do
-  keyword "from"
-  packageName <- variable
+importStmt = importPackage <|> importVariables
+
+importPackage :: Parser Stmt
+importPackage = do
   keyword "import"
-  importedFile <- variable `sepBy1` symbol "."
-  let path = intercalate "/" importedFile
-  return $ Import packageName path
+  packageName <- variable `sepBy1` symbol "."
+  let path = intercalate "/" packageName
+  return $ ImportPackage path
+
+importVariables :: Parser Stmt
+importVariables = do
+  keyword "from"
+  packageName <- variable `sepBy1` symbol "."
+  let path = intercalate "/" packageName
+  keyword "import"
+  importedVariables <- variable `sepBy1` symbol ","
+  return $ Import path importedVariables
 
 defineStmt :: Parser Stmt
 defineStmt = do

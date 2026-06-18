@@ -18,9 +18,10 @@ data File = File
   deriving (Show, Read, Eq)
 
 data Stmt
-  = Import String FilePath
+  = ImportPackage FilePath
+  | Import FilePath [String]
   | Define String Expr
-  | TopLevelExpr Expr
+  | Expr Expr
   deriving (Show, Read, Eq)
 
 type Parser = Parsec Error Input
